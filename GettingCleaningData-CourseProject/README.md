@@ -4,17 +4,9 @@ author: "Byron Estes"
 date: "Saturday, March 21, 2015"
 output: html_document
 ---
-
-========================
-List of Files in Project
-========================
-
-1) run_analysis.R - R script 
-2) codebook.txt - Data dictionary for the final data product 
-   means_by_subject_and_activity
-3) means_by_subject_and_activity.txt which is #2 saved to a file. 
-4) datflow.png  - Graphical depiction of the tidying process.
-
+List of Files in Project: 
+(1) run_analysis.R - R script, (2) codebook.txt - Data dictionary for the final data product means_by_subject_and_activity and (3) dataflow.png  - Graphical depiction of the tidying process.
+  
 ==============
 run_analysis.R
 ==============
@@ -45,10 +37,7 @@ I chose the following high level approach to cleaning my data:
     
     For example...
     if you wanted to summarize only the train or test data, you could do that because 
-    I preserved the interim data sets in a logical fashion.
-    
-    One improvement would be to wait to filter the columns until after the file sets
-    for test and tain were stitched together.    
+    I preserved the interim data sets in a logical fashion.   
 
 Below are the steps I took to massage the raw data into a tidy dataset.  
 
@@ -59,9 +48,9 @@ along the way.
 As a "bonus"", I've provided a diagram showing the data flow from raw data, 
 though interim stages into it's final tidy form.  
     
-http://dataflow.png
+https://github.com/ByronOfMunster/GettingCleaningData-CourseProject/tree/master/GettingCleaningData-CourseProject/dataflow.png
 
-Step 1: Download zip file to working direcory, IF IT DOES NOT ALREADY EXIST.      
+Step 1: Download zip file to working directory, IF IT DOES NOT ALREADY EXIST.      
         If the script downloads the zip file, it will delete it when it is done.
         If the script uses an existing zip file, it will leave it.              
 
@@ -135,6 +124,8 @@ Step 2: Read the raw files needed from the archive (i.e. does not explode it)
 	
 
  Step 6:  Update the X_* data frame column names using the feature description. 
+	  Convert all names to lower case and remove hyphens for readability 
+          and codability.
 
 	Motivations for Step #6
 	Neither the X_test or X_train data frames had descriptive columns so I 
@@ -145,9 +136,12 @@ Step 2: Read the raw files needed from the archive (i.e. does not explode it)
  Step 7:  Get a list of column indexes whose feature description contains 
           "mean()" or "std()". 
 
-         Use this to list issolate and extract only those columns into new 
-         data frames, one for test and one for train.
-
+          Use this to list issolate and extract only those columns into new 
+          data frames, one for test and one for train.
+         
+          Convert all remaing column names to lower case, remove hyphens and 
+          parenthesis to improve readability and codability.
+	
 	Creates new data frames:
 	-  X_test_std_and_mean_cols_only
 	-  X_train_std_and_mean_cols_only
@@ -192,3 +186,4 @@ R Code to read the file created in Step 12:
 means_by_subject_and_activity <- read.table("means_by_subject_and_activity.txt",
                 stringsAsFactors = FALSE, 
                 header=TRUE)
+

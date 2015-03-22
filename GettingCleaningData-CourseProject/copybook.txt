@@ -6,13 +6,39 @@ This file contains an aggregation of both the test and training data observation
 by subject(i.e. the person who performed the activity) and activity (i.e. activity that the person
 performed) 
 
+======================
+Column Names and Order 
+======================
+I reordered the column groupings alphabetically to makee finding them easier. I felt the names were 
+symantically dense and already did a better job describing what they were in a compact format that would 
+be easy to use in other manipulations and visualizations.  I did, however, convert them to lower case, 
+and removed special characters (i.e. "-", "(", ")")
+
+I visually separated the column groupings by their signal names which results into couplets and triplets
+by statistic operation/type.
+
+====================
+Melt or Not to Melt?
+====================
+I considered melting the X, Y, Z axis out of variable names into a separate column.  However not all the 
+columns posses an axes and this woul creat NA's.  Also, it wasn't germane to the assignment.  I can think 
+of situations where this would be useful, but this wasn't one of them.
+
+I considered melting the statistial operation out of the variable names into a separate column (e.g. mean,
+stddev, etc.  But as I thought about it, I really couldn't come up with a compelling reason why I would want
+to do it or how I would use it.  Certainly, it wasn't germane to the assignmen so again, I decided against 
+this.
+
+Please see my forum post on this topic:
+https://class.coursera.org/getdata-012/forum/thread?thread_id=179#post-1271
+
 ==========================================================================================================
 Column Nbr 	|Column Name			   |  Data Type	  |  Column Definitions		
 ==========================================================================================================
-1		|subject_id			   |integer 	  |  Identifies the subject who performed    
+1		|subjectid			   |integer 	  |  Identifies the subject who performed    
 		|				   |		  |  the activity. Range is from 1 to 30.
 ----------------------------------------------------------------------------------------------------------
-2		|activity			   |character     |  Text label of activity_id. Values are
+2		|activityid			   |integer       |  Values are
 		|				   |		  |    1 WALKING
 		|				   |		  |    2 WALKING_UPSTAIRS
 		|				   |		  |    3 WALKING_DOWNSTAIRS
@@ -20,115 +46,114 @@ Column Nbr 	|Column Name			   |  Data Type	  |  Column Definitions
 		|				   |		  |    5 STANDING
 		|				   |		  |    6 LAYING
 ----------------------------------------------------------------------------------------------------------
-3		|fBodyAcc-mean()-X		   |numeric	  |  Mean for fBodyAcc signal for all  
-4		|fBodyAcc-mean()-Y		   |numeric	  |  three axes (X, Y and Z) by subject and
-5		|fBodyAcc-mean()-Z		   |numeric	  |  activity.
+3		|fbodyaccjerkmeanfreqx	   	   |numeric	  |  Mean frequncy for fBodyAccJerk signal
+4		|fbodyaccjerkmeanfreqy	           |numeric	  |  for all three axes(X, Y and Z) by 
+5		|fbodyaccjerkmeanfreqz	   	   |numeric	  |  subject and activity.
 ----------------------------------------------------------------------------------------------------------
-6		|fBodyAcc-meanFreq()-X		   |numeric	  |  Mean frequncy for fBodyAcc signal   
-7		|fBodyAcc-meanFreq()-Y		   |numeric	  |  for all three axes (X, Y and Z)by 
-8		|fBodyAcc-meanFreq()-Z		   |numeric	  |  subject and activity.	      
+6		|fbodyaccjerkmeanx		   |numeric	  |  Mean for fBodyAccJerk signal for all
+7		|fbodyaccjerkmeany		   |numeric	  |  three axes (X, Y and Z) by subject and 
+8		|fbodyaccjerkmeanz		   |numeric	  |  activity.
 ----------------------------------------------------------------------------------------------------------
-9		|fBodyAcc-std()-X		   |numeric	  |  Std dev for fBodyAcc signal for all
-10		|fBodyAcc-std()-Y		   |numeric	  |  three axes (X,Y and Z) by subject and 
-11		|fBodyAcc-std()-Z		   |numeric	  |  activity.
+9		|fbodyaccjerkstdx		   |numeric	  |  Std dev for fBodyAccJerk signal for all
+10		|fbodyaccjerkstdy		   |numeric	  |  three axes (X, Y and Z) by subject and 
+11		|fbodyaccjerkstdz		   |numeric	  |  activity
 ----------------------------------------------------------------------------------------------------------
-12		|fBodyAccJerk-mean()-X		   |numeric	  |  Mean for fBodyAccJerk signal for all
-13		|fBodyAccJerk-mean()-Y		   |numeric	  |  three axes (X, Y and Z) by subject and 
-14		|fBodyAccJerk-mean()-Z		   |numeric	  |  activity.
+12		|fbodyaccmagmean		   |numeric	  |  Mean, mean frequency and std dev for  
+13		|fbodyaccmagmeanfreq		   |numeric	  |  fBodyAcc signal magnitude by subject 
+14		|fbodyaccmagstd 		   |numeric	  |  and activity.
 ----------------------------------------------------------------------------------------------------------
-15		|fBodyAccJerk-meanFreq()-X	   |numeric	  |  Mean frequncy for fBodyAccJerk signal
-16		|fBodyAccJerk-meanFreq()-Y	   |numeric	  |  for all three axes(X, Y and Z) by 
-17		|fBodyAccJerk-meanFreq()-Z	   |numeric	  |  subject and activity.
+15		|fbodyaccmeanfreqx		   |numeric	  |  Mean frequncy for fBodyAcc signal   
+16		|fbodyaccmeanfreqy		   |numeric	  |  for all three axes (X, Y and Z)by 
+17		|fbodyaccmeanfreqz		   |numeric	  |  subject and activity.
 ----------------------------------------------------------------------------------------------------------
-18		|fBodyAccJerk-std()-X		   |numeric	  |  Std dev for fBodyAccJerk signal for all
-19		|fBodyAccJerk-std()-Y		   |numeric	  |  three axes (X, Y and Z) by subject and 
-20		|fBodyAccJerk-std()-Z		   |numeric	  |  activity
+18		|fbodyaccmeanx		   	   |numeric	  |  Mean for fBodyAcc signal for all  
+19		|fbodyaccmeany		   	   |numeric	  |  three axes (X, Y and Z) by subject and
+20		|fbodyaccmeanz		           |numeric	  |  activity.
 ----------------------------------------------------------------------------------------------------------
-21		|fBodyAccMag-mean()		   |numeric	  |  Mean, mean frequency and std dev for  
-22		|fBodyAccMag-meanFreq()		   |numeric	  |  fBodyAcc signal magnitude by subject 
-23		|fBodyAccMag-std()		   |numeric	  |  and activity.
+21		|fbodyaccstdx		   	   |numeric	  |  Std dev for fBodyAcc signal for all
+22		|fbodyaccstdy		   	   |numeric	  |  three axes (X,Y and Z) by subject and 
+23		|fbodyaccstdz		   	   |numeric	  |  activity.
 ----------------------------------------------------------------------------------------------------------
-24		|fBodyBodyAccJerkMag-mean()	   |numeric	  |  Mean, mean frequency and std dev for  
-25		|fBodyBodyAccJerkMag-meanFreq()	   |numeric	  |  fBodyBodyAccJerk signal magnitude by  
-26		|fBodyBodyAccJerkMag-std()	   |numeric	  |  subject and activity.
+24		|fbodybodyaccjerkmagmean	   |numeric	  |  Mean, mean frequency and std dev for  
+25		|fbodybodyaccjerkmagmeanfreq	   |numeric	  |  fBodyBodyAccJerk signal magnitude by  
+26		|fbodybodyaccjerkmagstd	  	   |numeric	  |  subject and activity.
 ----------------------------------------------------------------------------------------------------------
-27		|fBodyBodyGyroJerkMag-mean()	   |numeric	  | Mean, mean frequency and std dev for 
-28		|fBodyBodyGyroJerkMag-meanFreq()   |numeric	  | fBodyBodyGyroJerk signal magnitude
-29		|fBodyBodyGyroJerkMag-std()	   |numeric	  | and activity.
+27		|fbodybodygyrojerkmagmean	   |numeric	  |  Mean, mean frequency and std dev for 
+28		|fbodybodygyrojerkmagmeanfreq      |numeric	  |  fBodyBodyGyroJerk signal magnitude
+29		|fbodybodygyrojerkmagstd	   |numeric	  |  and activity.
 ----------------------------------------------------------------------------------------------------------
-30		|fBodyBodyGyroMag-mean()	   |numeric	  |  Mean, mean frequency and std dev for 
-31		|fBodyBodyGyroMag-meanFreq()	   |numeric	  |  fBodyBodyGyroJerkMag signal by subject
-32		|fBodyBodyGyroMag-std()		   |numeric	  |  by subject and activity.
+30		|fbodybodygyromagmean		   |numeric	  |  Mean, mean frequency and std dev for 
+31		|fbodybodygyromagmeanfreq	   |numeric	  |  fBodyBodyGyroJerkMag signal by subject
+32		|fbodybodygyromagstd		   |numeric	  |  by subject and activity.
 ----------------------------------------------------------------------------------------------------------
-33		|fBodyGyro-mean()-X		   |numeric	  |  Mean for fBodyGyro signal for all
-34		|fBodyGyro-mean()-Y		   |numeric	  |  three axes(X, Y and Z) by subject and  
-35		|fBodyGyro-mean()-Z		   |numeric	  |  activity.
+33		|fbodygyromeanfreqx		   |numeric	  |  Mean frequncy for fBodyGyro signal
+34		|fbodygyromeanfreqy		   |numeric	  |  for all three axes (X, Y and Z) by 
+35		|fbodygyromeanfreqz		   |numeric	  |  subject and activity.
 ----------------------------------------------------------------------------------------------------------
-36		|fBodyGyro-meanFreq()-X		   |numeric	  |  Mean frequncy for fBodyGyro signal
-37		|fBodyGyro-meanFreq()-Y		   |numeric	  |  for all three axes (X, Y and Z) by 
-38		|fBodyGyro-meanFreq()-Z		   |numeric	  |  subject and activity.
+36		|fbodygyromeanx			   |numeric	  |  Mean for fBodyGyro signal for all
+37		|fbodygyromeany			   |numeric	  |  three axes(X, Y and Z) by subject and  
+38		|fbodygyromeanz		   	   |numeric	  |  activity.
 ----------------------------------------------------------------------------------------------------------
-39		|fBodyGyro-std()-X		   |numeric	  |  Std dev for fBodyGyro signal for all
-40		|fBodyGyro-std()-Y		   |numeric	  |  three axes (X, Y and Z) by subject 
-41		|fBodyGyro-std()-Z		   |numeric	  |  and activity.
+39		|fbodygyrostdx			   |numeric	  |  Std dev for fBodyGyro signal for all
+40		|fbodygyrostdy			   |numeric	  |  three axes (X, Y and Z) by subject 
+41		|fbodygyrostdz			   |numeric	  |  and activity.
 ----------------------------------------------------------------------------------------------------------
-42		|tBodyAcc-mean()-X		   |numeric	  |  Mean for tBodyAcc signal for all
-43		|tBodyAcc-mean()-Y		   |numeric	  |  three axes (X, Y and Z) by subject 
-44		|tBodyAcc-mean()-Z		   |numeric	  |  and activity.
-----------------------------------------------------------------------------------------------------------
-45		|tBodyAcc-std()-X		   |numeric	  |  Std dev for tBodyAcc signal for all
-46		|tBodyAcc-std()-Y		   |numeric	  |  three axes (X, Y and Z) by subject
-47		|tBodyAcc-std()-Z		   |numeric	  |  and activity.
-----------------------------------------------------------------------------------------------------------
-48		|tBodyAccJerk-mean()-X		   |numeric	  |  Mean for tBodyAccJerk signal for all
-49		|tBodyAccJerk-mean()-Y		   |numeric	  |  three axes (X, Y and Z) by subject 
-50		|tBodyAccJerk-mean()-Z		   |numeric	  |  and activity.
-----------------------------------------------------------------------------------------------------------
-51		|tBodyAccJerk-std()-X		   |numeric	  |  Std dev for tBodyAccJerk signal for 
-52		|tBodyAccJerk-std()-Y		   |numeric	  |  all three axes (X, Y and Z) by 
-53		|tBodyAccJerk-std()-Z		   |numeric	  |  subject and activity.
-----------------------------------------------------------------------------------------------------------
-54		|tBodyAccJerkMag-mean()		   |numeric	  | Mean and std dev for tBodyAccJerk 
-55		|tBodyAccJerkMag-std()		   |numeric	  | signal magnitude by subject 
+42		|tbodyaccjerkmagmean		   |numeric	  | Mean and std dev for tBodyAccJerk 
+43		|tbodyaccjerkmagstd		   |numeric	  | signal magnitude by subject 
                 |                                  |              | and activity
 ----------------------------------------------------------------------------------------------------------
-56		|tBodyAccMag-mean()		   |numeric	  | Mean and std dev for tBodyAcc
-57
-		|tBodyAccMag-std()		   |numeric	  | signal magnitude by subject 
+44		|tbodyaccjerkmeanx		   |numeric	  |  Mean for tBodyAccJerk signal for all
+45		|tbodyaccjerkmeany		   |numeric	  |  three axes (X, Y and Z) by subject 
+46		|tbodyaccjerkmeanz		   |numeric	  |  and activity.
+----------------------------------------------------------------------------------------------------------
+47		|tbodyaccjerkstdx		   |numeric	  |  Std dev for tBodyAccJerk signal for 
+48		|tbodyaccjerkstdy		   |numeric	  |  all three axes (X, Y and Z) by 
+49		|tbodyaccjerkstdz		   |numeric	  |  subject and activity.
+----------------------------------------------------------------------------------------------------------
+50		|tbodyaccmagmean		   |numeric	  | Mean and std dev for tBodyAcc
+51		|tbodyaccmagstd			   |numeric	  | signal magnitude by subject 
                 |                                  |              | and activity
 ----------------------------------------------------------------------------------------------------------
-58		|tBodyGyro-mean()-X		   |numeric	  | Mean for tBodyGyro signal for all
-59		|tBodyGyro-mean()-Y		   |numeric	  | three axes (X, Y and Z) by subject 
-60		|tBodyGyro-mean()-Z		   |numeric	  | and activity.
+52		|tbodyaccmeanx			   |numeric	  |  Mean for tBodyAcc signal for all
+53		|tbodyaccmeany			   |numeric	  |  three axes (X, Y and Z) by subject 
+54		|tbodyaccmeanz			   |numeric	  |  and activity.
 ----------------------------------------------------------------------------------------------------------
-61		|tBodyGyro-std()-X		   |numeric	  | Std dev for tBodyGyro signal for 
-62		|tBodyGyro-std()-Y		   |numeric	  | all three axes (X, Y and Z) by 
-63		|tBodyGyro-std()-Z		   |numeric	  | subject and activity.
+55		|tbodyaccstdx			   |numeric	  |  Std dev for tBodyAcc signal for all
+56		|tbodyaccstdy			   |numeric	  |  three axes (X, Y and Z) by subject
+57		|tbodyaccstdz			   |numeric	  |  and activity.
 ----------------------------------------------------------------------------------------------------------
-64		|tBodyGyroJerk-mean()-X		   |numeric	  | Mean for tBodyGyroJerk signal for all
-65		|tBodyGyroJerk-mean()-Y		   |numeric	  | three axes (X, Y and Z) by subject 
-66		|tBodyGyroJerk-mean()-Z		   |numeric	  | and activity.
-----------------------------------------------------------------------------------------------------------
-67		|tBodyGyroJerk-std()-X		   |numeric	  | Std dev for tBodyGyroJerk signal for 
-68		|tBodyGyroJerk-std()-Y		   |numeric	  | all three axes (X, Y and Z) by 
-69		|tBodyGyroJerk-std()-Z		   |numeric	  | subject and activity.
-----------------------------------------------------------------------------------------------------------
-70		|tBodyGyroJerkMag-mean()	   |numeric	  | Mean and std dev for tBodyGyroJerk
-71		|tBodyGyroJerkMag-std()		   |numeric	  | signal magnitude by subject 
+58		|tbodygyrojerkmagmean	 	   |numeric	  | Mean and std dev for tBodyGyroJerk
+59		|tbodygyrojerkmagstd		   |numeric	  | signal magnitude by subject 
                 |                                  |              | and activity
 ----------------------------------------------------------------------------------------------------------
-72		|tBodyGyroMag-mean()		   |numeric	  | Mean and std dev for tBodyGyro
-73		|tBodyGyroMag-std()		   |numeric	  | signal magnitude by subject 
+60		|tbodygyrojerkmeanx		   |numeric	  | Mean for tBodyGyroJerk signal for all
+61		|tbodygyrojerkmeany		   |numeric	  | three axes (X, Y and Z) by subject 
+62		|tbodygyrojerkmeanz		   |numeric	  | and activity.
+----------------------------------------------------------------------------------------------------------
+63		|tbodygyrojerkstdx		   |numeric	  | Std dev for tBodyGyroJerk signal for 
+64		|tbodygyrojerkstdy		   |numeric	  | all three axes (X, Y and Z) by 
+65		|tbodygyrojerkstdz		   |numeric	  | subject and activity.                
+----------------------------------------------------------------------------------------------------------
+66		|tbodygyromagmean		   |numeric	  | Mean and std dev for tBodyGyro
+67		|tbodygyromagstd		   |numeric	  | signal magnitude by subject 
                 |                                  |              | and activity
 ----------------------------------------------------------------------------------------------------------
-74		|tGravityAcc-mean()-X		   |numeric	  | Mean for GravityAcc signal for all
-75		|tGravityAcc-mean()-Y		   |numeric	  | three axes (X, Y and Z) by subject 
-76		|tGravityAcc-mean()-Z		   |numeric	  | and activity.
+68		|tbodygyromeanx			   |numeric	  | Mean for tBodyGyro signal for all
+69		|tbodygyromeany			   |numeric	  | three axes (X, Y and Z) by subject 
+70		|tbodygyromeanz			   |numeric	  | and activity.
 ----------------------------------------------------------------------------------------------------------
-77		|tGravityAcc-std()-X		   |numeric	  | Std dev for GravityAcc signal for 
-78		|tGravityAcc-std()-Y		   |numeric	  | all three axes (X, Y and Z) by 
-79		|tGravityAcc-std()-Z		   |numeric	  | subject and activity.
+71		|tbodygyrostdx			   |numeric	  | Std dev for tBodyGyro signal for 
+72		|tbodygyrostdy			   |numeric	  | all three axes (X, Y and Z) by 
+73		|tbodygyrostdz		   	   |numeric	  | subject and activity.
 ----------------------------------------------------------------------------------------------------------
-80		|tGravityAccMag-mean()		   |numeric	  | Mean and std dev for GravityAcc
-81		|tGravityAccMag-std()		   |numeric	  | signal magnitude by subject 
+74		|tgravityaccmagmean		   |numeric	  | Mean and std dev for GravityAcc
+75		|tgravityaccmagstd		   |numeric	  | signal magnitude by subject 
                 |                                  |              | and activity
+----------------------------------------------------------------------------------------------------------
+76		|tgravityaccmeanx		   |numeric	  | Mean for GravityAcc signal for all
+77		|tgravityaccmeany		   |numeric	  | three axes (X, Y and Z) by subject 
+78		|tgravityaccmeanz		   |numeric	  | and activity.
+----------------------------------------------------------------------------------------------------------
+79		|tgravityaccstdx		   |numeric	  | Std dev for GravityAcc signal for 
+80		|tgravityaccstdy		   |numeric	  | all three axes (X, Y and Z) by 
+81		|tgravityaccstdz		   |numeric	  | subject and activity.

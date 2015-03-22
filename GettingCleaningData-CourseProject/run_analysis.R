@@ -29,7 +29,7 @@ if(!file.exists("getdata-projectfiles-UCI HAR Dataset.zip")) {
 #          -----------------
 #          Features & Labels
 #          -----------------
-#   	   File	Name			Data Frame Variable Name	   
+#              File	Name			Data Frame Variable Name	   
 #               features.txt		   features
 #               activity_labels.txt	   activity_labels
 #
@@ -70,22 +70,22 @@ y_train <- read.table(unz(zipfile, "UCI HAR Dataset/train/y_train.txt"), strings
 if(cleanup) unlink(zipfile)
 
 #-------------------------------------------------------------------------------
-# Step 3:  Update subject_id column name on "subject_*" data fames.
+# Step 3:  Update subjectid column name on "subject_*" data fames.
 #-------------------------------------------------------------------------------
-colnames(subject_test) <- c("subject_id")
-colnames(subject_train) <- c("subject_id")
+colnames(subject_test) <- c("subjectid")
+colnames(subject_train) <- c("subjectid")
 
 #-------------------------------------------------------------------------------
 # Step 4:  Update activity_id column name on "y_*" data frames.
 #-------------------------------------------------------------------------------
-colnames(y_test) <- c("activity_id")
-colnames(y_train) <-c("activity_id")
+colnames(y_test) <- c("activityid")
+colnames(y_train) <-c("activityid")
 
 #-------------------------------------------------------------------------------
 # Step 5:  Add the activity "label" to the "y_*" data frames based upon the 
 #          activity_id.  Note: used join() to preserve order
 #-------------------------------------------------------------------------------
-colnames(activity_labels) <- c("activity_id", "activity")
+colnames(activity_labels) <- c("activityid", "activity")
 y_test_with_activity_labels <- join(y_test, activity_labels)  
 y_train_with_activity_labels <- join(y_train, activity_labels)  
 
@@ -106,11 +106,22 @@ colnames(X_train) <- feature_names
 #
 #          Use this to list issolate and extract only those columns into new 
 #          data frames, one for test and one for train.
+#   
+#          Convert all remaing column names to lower case, remove hyphens and 
+#          parenthesis to improve readability and codability.
 #-------------------------------------------------------------------------------
 search <- c("mean()", "std()")
 found_columns <- unique (grep(paste(search,collapse="|"), feature_names))
 X_test_std_and_mean_cols_only <- X_test[,found_columns]
 X_train_std_and_mean_cols_only <- X_train[,found_columns]
+
+makereadable <- colnames(X_test_std_and_mean_cols_only)
+makereadable <- sapply(makereadable, tolower)
+makereadable <- sapply(makereadable, function (x) gsub("-", "", x))
+makereadable <- sapply(makereadable, function (x) gsub("\\(\\)", "", x)) 
+
+colnames(X_test_std_and_mean_cols_only) <- makereadable
+colnames(X_train_std_and_mean_cols_only) <- makereadable
 
 #-------------------------------------------------------------------------------
 # Step 8:  Combine the columns from the 3 test files together into a single new
@@ -140,10 +151,10 @@ alphabetized_test_and_train <- test_and_train[sorted_with_subject_moved_to_front
 #          Order the result by subject (primary) and activity "name" (secondary)
 #          Note: Drop activity label for this one. 
 #-------------------------------------------------------------------------------
-means_by_subject_and_activity <- test_and_train %>% 
-         group_by(subject_id, activity_id) %>% 
-         summarise_each(funs(mean), -activity) %>%
-         arrange(subject_id, activity_id)
+means_by_subject_and_activity <- alphabetized_test_and_train %>% 
+        group_by(subjectid, activityid) %>% 
+        summarise_each(funs(mean), -activity) %>%
+        arrange(subjectid, activityid)
 
 #-------------------------------------------------------------------------------
 # Step 12:  Save data frame with means grouped by subject and activity to a file.
